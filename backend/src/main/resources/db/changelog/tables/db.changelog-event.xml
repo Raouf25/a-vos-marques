@@ -1,0 +1,49 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+
+    <changeSet author="Abderraouf MAKHLOUF" id="create the first resource table : event">
+
+        <preConditions onFail="CONTINUE">
+            <not>
+                <tableExists tableName="event"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="event">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints primaryKey="true" primaryKeyName="event_pkey"/>
+            </column>
+            <column name="annee_precedente" type="VARCHAR(255)"/>
+            <column name="arrivee" type="VARCHAR(255)"/>
+            <column name="autres_infos" type="VARCHAR(255)"/>
+            <column name="avis_technique_et_securite" type="VARCHAR(255)"/>
+            <column name="certificat_de_mesurage" type="VARCHAR(255)"/>
+            <column name="challenge" type="VARCHAR(255)"/>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="conditions" type="VARCHAR(255)"/>
+            <column name="contact_technique" type="VARCHAR(255)"/>
+            <column name="date_de_debut" type="date"/>
+            <column name="date_de_fin" type="VARCHAR(255)"/>
+            <column name="depart" type="VARCHAR(255)"/>
+            <column name="department" type="VARCHAR(255)"/>
+            <column name="epreuves" type="VARCHAR(255)"/>
+            <column name="file_id" type="VARCHAR(255)"/>
+            <column name="infos_epreuve" type="VARCHAR(255)"/>
+            <column name="league" type="VARCHAR(255)"/>
+            <column name="montant_inscription" type="VARCHAR(255)"/>
+            <column name="niveau" type="VARCHAR(255)"/>
+            <column name="officiel" type="VARCHAR(255)"/>
+            <column name="recompenses" type="VARCHAR(255)"/>
+            <column name="services" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="vainqueur" type="VARCHAR(255)"/>
+            <column name="fk_organizer_contact" type="INTEGER"/>
+            <column name="fk_stadium_address" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
