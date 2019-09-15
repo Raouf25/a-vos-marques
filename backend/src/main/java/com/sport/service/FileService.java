@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -28,19 +27,14 @@ public class FileService {
     @Value("${bases.athle.uri.detail}")
     private String hostArgsById;
 
-    @Async
+//    @Async
     public void getAllByYear(int year) {
-
-        List<String> departments = departmentService.getAll();
-
-        for (String department : departments) {
-
-            String lf = getWebPageAsString(year, department);
-
-            if (lf != null) {
-                writeWebPageOnLocalFile(year, department, lf);
-            }
-        }
+        log.info("[get All By Year] started" );
+        departmentService.getAll()
+                         .stream()
+                         .filter(dep -> getWebPageAsString(year, dep) != null)
+                         .forEach(dep -> writeWebPageOnLocalFile(year, dep, getWebPageAsString(year, dep)));
+        log.info("[get All By Year] ended" );
 
     }
 
@@ -75,8 +69,10 @@ public class FileService {
 
     private void writeWebPageOnLocalFile(int year, String department, String content) {
 
-        String dir = getClass().getResource("/").getFile();
-        String fileStr = dir + "/data/" + year + "/" + department + ".html";
+        String dir = System.getProperty("java.io.tmpdir");
+        String separator = System.getProperty("file.separator");
+        String fileStr = dir + separator + "data" + separator + year + separator + department + ".html";
+
         new File(fileStr).getParentFile().mkdirs();
         OutputStream os;
 
@@ -94,8 +90,10 @@ public class FileService {
 
     private void writeWebPageOnLocalFile(int year, String department, String id, String content) {
 
-        String dir = getClass().getResource("/").getFile();
-        String fileStr = dir + "/data/" + year + "/" + department + "/" + id + ".html";
+        String dir = System.getProperty("java.io.tmpdir");
+        String separator = System.getProperty("file.separator");
+        String fileStr = dir + separator  + "data" + separator + year + separator + department + separator + id + ".html";
+
         new File(fileStr).getParentFile().mkdirs();
         OutputStream os;
 

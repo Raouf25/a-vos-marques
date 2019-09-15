@@ -16,9 +16,14 @@ target
 .DS_Store
 
 # Intellij #
-.idea
+.idea/
 *.iml
 *.log
+
+backend/.idea/
+backend/*.iws
+backend/*.iml
+backend/*.ipr
 
 # VSCode
 .vscode

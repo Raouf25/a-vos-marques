@@ -1,15 +1,14 @@
 package com.sport.service;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sport.entity.Address;
 import com.sport.entity.Event;
 import com.sport.entity.Organizer;
 import com.sport.entity.Region;
-//import com.dugauguez.scrapathle.repository.*;
+import com.sport.repository.*;
 import com.sport.utils.JsoupUtils;
 import com.sport.utils.OpenStreetMapUtils;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sport.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,13 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
+
 
 
 @Slf4j
@@ -53,16 +52,18 @@ public class ScrapingService {
     @Autowired
     ScrapingRepository scrapingRepository;
 
-    @Async
+//    @Async
     public void getAllByYear(int year) {
 
         log.info("Parsing is starting...");
 
         long startProcessing = System.currentTimeMillis();
 
-        String dir = getClass().getResource("/data/" + year).getFile();
-
-        File folder = new File(dir);
+        String tmpDirectory = System.getProperty("java.io.tmpdir");
+        String separator = System.getProperty("file.separator");
+        String path = tmpDirectory + separator + "data" + separator + year;
+        log.info("[has Detail File To Be Retrieved] path {} ", path);
+        File folder = new File(path);
 
         List<Event> all = Arrays.stream(folder.listFiles())
                                 .filter(file -> isValidFile(year, file.getAbsolutePath()))
@@ -89,14 +90,11 @@ public class ScrapingService {
     }
 
     private boolean hasDetailFileToBeRetrieved(int year, String department, String id) {
-        URL url = getClass().getResource("/data/" + year + "/" + department + "/" + id + ".html");
 
-        if (url == null) {
-            return true;
-        }
-
-        String path = url.getFile();
-        File test = new File(path);
+        String tmpDirectory = System.getProperty("java.io.tmpdir");
+        String separator = System.getProperty("file.separator");
+        String url = tmpDirectory + separator + "data" + separator + year + separator + department + separator + id + ".html";
+        File test = new File(url);
 
         if (!test.exists()) {
             return true;
@@ -130,6 +128,7 @@ public class ScrapingService {
            .filter(id -> hasDetailFileToBeRetrieved(year, department, id))
            .forEach(id -> fileService.getById(year, department, id));
 
+        log.info("[scrap Events] for department {} ", department);
         return ids.stream()
                   .map(id -> parseEvent(year, department, id))
                   .collect(Collectors.toList());
@@ -138,13 +137,10 @@ public class ScrapingService {
 
     private Event parseEvent(int year, String department, String id) {
 
-        // department = "021";
-        // id = "903849522846443840174834256852468837";
+        String tmpDirectory = System.getProperty("java.io.tmpdir");
+        String separator = System.getProperty("file.separator");
 
-        // department = "069";
-        // id = "764849668846493828149846125855762849";
-
-        String file = getClass().getResource("/data/" + year + "/" + department + "/" + id + ".html").getFile();
+        String file = tmpDirectory + separator + "data" + separator + year + separator + department + separator + id + ".html";
 
         Document doc = jsoupUtils.getDocument(new File(file));
         if (doc == null) {
