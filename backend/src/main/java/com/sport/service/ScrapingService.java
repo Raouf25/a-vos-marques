@@ -75,6 +75,7 @@ public class ScrapingService {
         List<Event> allDistinctEvent = new ArrayList<>(all.stream()
                                                           .parallel()
                                                           .filter(e -> e.getCode() != null)
+                                                          .filter(event -> event.getDateDeDebut().isAfter(LocalDate.now()))
                                                           .collect(Collectors.toMap(Event::getCode, p -> p, (p, q) -> p))
                                                           .values());
 

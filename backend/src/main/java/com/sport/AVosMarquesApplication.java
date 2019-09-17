@@ -18,8 +18,8 @@ public class AVosMarquesApplication {
     public CommandLineRunner demo(FileService fileService, ScrapingService scrapingService) {
         return (args) -> {
             // only for first deployment
-            fileService.getAllByYear(2019);
-            scrapingService.getAllByYear(2019);
+//            fileService.getAllByYear(2019);
+//            scrapingService.getAllByYear(2019);
         };
     }
 

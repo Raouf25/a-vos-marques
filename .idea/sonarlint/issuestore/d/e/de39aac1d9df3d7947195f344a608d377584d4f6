@@ -1,17 +1,15 @@
 
-Nsquid:S1854"9Remove this useless assignment to local variable "tests".(„ËÃå
-`squid:S1192"FDefine a constant instead of duplicating this literal ".html" 4 times.(©½½Ìúÿÿÿÿ
-Nsquid:S1854"9Remove this useless assignment to local variable "tests".(á–¢Ä
-`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(éŒŒ‡
-Bsquid:S1481"-Remove this unused "subTypes" local variable.(è¡à—
-?squid:S1481"*Remove this unused "tests" local variable.(á–¢Ä
-Vsquid:S1854"<Remove this useless assignment to local variable "contacts".(Ü¹Ñ²úÿÿÿÿ
-Gsquid:S1481"-Remove this unused "contacts" local variable.(Ü¹Ñ²úÿÿÿÿ
-Ssquid:S1854"9Remove this useless assignment to local variable "staff".(šª¦ìúÿÿÿÿ
-dsquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÆÁÄÕ
-esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(øæ£ùÿÿÿÿ
-asquid:S1192"GDefine a constant instead of duplicating this literal "/data/" 3 times.(ÄùşÎúÿÿÿÿ
-Dsquid:S1481"*Remove this unused "staff" local variable.(šª¦ìúÿÿÿÿ
-Fsquid:S1612",Replace this lambda with a method reference.(ñ´¼ıÿÿÿÿ
-Qsquid:S1854"<Remove this useless assignment to local variable "subTypes".(è¡à—
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÖŠÉ8¤ÃÁåÒ-
+msquid:S1192>"ODefine a constant instead of duplicating this literal "java.io.tmpdir" 3 times.(¤“Ï´8Ì÷¢ƒÔ-
+[squid:S1854§"<Remove this useless assignment to local variable "subTypes".(è¡à—8Ì÷¢ƒÔ-
+Xsquid:S1854¹"9Remove this useless assignment to local variable "tests".(„ËÃå8Ì÷¢ƒÔ-
+nsquid:S00100è"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÆÁÄÕ8Ì÷¢ƒÔ-
+Qsquid:S1481´"-Remove this unused "contacts" local variable.(Ü¹Ñ²úÿÿÿÿ8Ì÷¢ƒÔ-
+]squid:S1854µ"9Remove this useless assignment to local variable "staff".(šª¦ìúÿÿÿÿ8Ì÷¢ƒÔ-
+msquid:S1192?"ODefine a constant instead of duplicating this literal "file.separator" 3 times.(šÎ“Ï8Ì÷¢ƒÔ-
+`squid:S1854´"<Remove this useless assignment to local variable "contacts".(Ü¹Ñ²úÿÿÿÿ8Ì÷¢ƒÔ-
+Osquid:S1612F",Replace this lambda with a method reference.(ñ´¼ıÿÿÿÿ8Ì÷¢ƒÔ-
+isquid:S1192Y"FDefine a constant instead of duplicating this literal ".html" 4 times.(©½½Ìúÿÿÿÿ8Ì÷¢ƒÔ-
+Xsquid:S1854¸"9Remove this useless assignment to local variable "tests".(á–¢Ä8Ì÷¢ƒÔ-
+Nsquid:S1481µ"*Remove this unused "staff" local variable.(šª¦ìúÿÿÿÿ8Ì÷¢ƒÔ-
+Lsquid:S1481§"-Remove this unused "subTypes" local variable.(è¡à—8Ì÷¢ƒÔ-
+Isquid:S1481¸"*Remove this unused "tests" local variable.(á–¢Ä8Ì÷¢ƒÔ-
