@@ -29,23 +29,13 @@
 
                 <div v-if="loading">
                     <orbit-spinner class="displayed"
-                        :animation-duration="1200"
-                        :size="55"
-                        :color="'#ff1d5e'"
-                />
-
+                                   :animation-duration="1200"
+                                   :size="55"
+                                   :color="'#ff1d5e'"
+                    />
 
                 </div>
-
-
-
-
-
-
-
             </div>
-
-
         </div>
     </v-app>
 
@@ -65,33 +55,12 @@
             return {
                 map: null,
                 tileLayer: null,
-
-
                 e1: 'Florida',
-
                 loading: true,
-
+                layerGroup: null,
                 markerLayer: null,
                 region: [],
                 states: [],
-                // states: [
-                //     'Alabama', 'Alaska', 'American Samoa', 'Arizona',
-                //     'Arkansas', 'California', 'Colorado', 'Connecticut',
-                //     'Delaware', 'District of Columbia', 'Federated States of Micronesia',
-                //     'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho',
-                //     'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-                //     'Louisiana', 'Maine', 'Marshall Islands', 'Maryland',
-                //     'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-                //     'Missouri', 'Montana', 'Nebraska', 'Nevada',
-                //     'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
-                //     'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio',
-                //     'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
-                //     'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
-                //     'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia',
-                //     'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
-                // ],
-
-
             }
         },
 
@@ -103,15 +72,26 @@
 
         methods: { /* Any app-specific functions go here */
             initMap() {
-                this.map = L.map('map').setView([46.603354, 1.8883335], 6);    //Paris 48.8566101,2.3514992    Toulouse 43.6044622,1.4442469
+
+                // // Creating map options
+                var mapOptions = {
+                    center: [46.603354, 1.8883335],  //Paris 48.8566101,2.3514992    Toulouse 43.6044622,1.4442469
+                    zoom: 6
+                };
+
+                this.map = L.map('map', mapOptions);
                 this.tileLayer = L.tileLayer(
-                    'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png',
-                    {
-                        maxZoom: 18,
-                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
-                    }
+                    'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png'
+                    // ,
+                    // {
+                    //     maxZoom: 18,
+                    //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
+                    // }
                 );
                 this.tileLayer.addTo(this.map);
+
+                // var layer = new L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+                // this.map.addLayer(layer);      // Adding layer to the map
 
                 api.getAllTowns()
                     .then(response => {
@@ -139,34 +119,27 @@
             changeRoute(a) {
                 this.loading = true ;
                 const newTown = this.region.filter(r => r.valueOf().town == a);
-                console.log(a + ": " + newTown[0].latitude, newTown[0].longitude);
-
+                var arrayOfLatLngs0=[];
+                var arrayOfLatLngs=[];
                 api.getAll2(newTown[0].code)
                     .then(response => {
-                        // this.todos = response.data;
-                        var arrayOfLatLngs=[];
-
                         response.data
                             .filter(e => (e.latitude != null && e.longitude != null))
                             .forEach(e => {
-
-                                console.log(e.name);
-
-                                arrayOfLatLngs.push([e.latitude, e.longitude]);
-                                // Add a marker to show where you clicked.
-                                this.markerLayer = L.marker([e.latitude, e.longitude])
-                                    .bindPopup(e.name)
-                                    .addTo(this.map);
-
-                                //     L.marker([e.latitude, e.longitude])
-                                //      .bindPopup(e.name)
-                                //      .removeFrom(this.map);
+                                arrayOfLatLngs0.push([e.latitude, e.longitude]);
+                                arrayOfLatLngs.push(L.marker([e.latitude, e.longitude]).bindPopup(e.name));
                             });
 
-                        var bounds = new L.LatLngBounds(arrayOfLatLngs);
-
+                        var bounds = new L.LatLngBounds(arrayOfLatLngs0);
                         this.map.fitBounds(bounds);
 
+                        if (this.layerGroup!= null){
+                            this.map.removeLayer(this.layerGroup);
+                        }
+
+                        // Creating layer group
+                         this.layerGroup = L.layerGroup( arrayOfLatLngs );
+                        this.layerGroup.addTo(this.map);    // Adding layer group to map
 
                     })
                     .catch(error => {
@@ -191,7 +164,7 @@
 
     .map {
         /*height: 600px;*/
-        height: 800px;
+        height: 650px;
     }
 
 
