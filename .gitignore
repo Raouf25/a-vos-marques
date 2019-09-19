@@ -16,7 +16,7 @@ target
 .DS_Store
 
 # Intellij #
-.idea/
+.idea
 *.iml
 *.log
 
@@ -47,10 +47,6 @@ security/target/
 selenium-debug.log
 
 !.mvn/wrapper/maven-wrapper.jar
-
-
-
-
 
 
 
@@ -141,4 +137,7 @@ backend/.idea/caches/build_file_checksums.ser
 # Sonarlint plugin
 .idea/sonarlint
 
-# End of https://www.gitignore.io/api/intellij
+# End of https://www.gitignore.io/api/intellijbackend/src/main/resources/public/index.html
+.idea/workspace.xml
+.idea/workspace.xml
+backend/src/main/resources/public/index.html

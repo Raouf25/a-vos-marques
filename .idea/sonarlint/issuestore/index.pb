@@ -68,3 +68,25 @@ B
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+a
+1backend/src/main/java/com/sport/entity/Event.java,f\5\f58962b9d3f119c6a14f6ad6c1da7525338a4fd2
+n
+>backend/src/main/java/com/sport/configuration/AsyncConfig.java,7\1\71d71e5119db3e325db2e511149cb4837e3b90d1
+B
+frontend/config.js,1\e\1ea08462f3ccaa63ab91a5f4f2186f968f38aa66
+p
+@backend/src/main/java/com/sport/configuration/SwaggerConfig.java,b\4\b438c4451be394a4d771c8b91f4b86bb62f9bbdd
+O
+frontend/src/plugins/vuetify.js,f\4\f4af5ce5846a2826bc3a1db7c287d87458703fa5
+A
+package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
+R
+"frontend/src/components/Footer.vue,b\a\ba5e90f28b346d1fab469d30c30fd5a8e623473b
+C
+frontend/.gitignore,e\2\e23a63a9f05477a70f6e75d709dbb4eae2db742d
+L
+frontend/src/assets/logo.svg,8\0\80d19a28b7910a714d7c0d500dd7017ff2f262e0
+J
+frontend/public/index.html,5\3\53b461857fde9b76a1c6e79a500050ceffbd7f33
+q
+Abackend/src/main/java/com/sport/repository/AddressRepository.java,2\8\28970c84b5b681ad9d6faaab1c36a93f55929d12

@@ -19,6 +19,12 @@ export default {
         }]
     }),
 
+    getEventPerTown: (code) => instance.get('event/'+code, {
+        transformResponse: [function (data) {
+            return data? JSON.parse(data) : data;
+        }]
+    }),
+
     getAll2: (code) => instance.get('stadiums/'+code, {
         transformResponse: [function (data) {
             return data? JSON.parse(data) : data;

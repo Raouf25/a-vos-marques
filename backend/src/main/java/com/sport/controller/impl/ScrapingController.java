@@ -2,6 +2,7 @@ package com.sport.controller.impl;
 
 import com.sport.controller.ScrapingApi;
 import com.sport.entity.Address;
+import com.sport.entity.Event;
 import com.sport.entity.Region;
 import com.sport.service.ScrapingService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,13 @@ public class ScrapingController implements ScrapingApi {
         List<Address> addresses = scrapingService.StadiumInTown(regionPostalCode);
         log.info("StadiumInTown : " + addresses.size());
         return ResponseEntity.status(HttpStatus.OK).body(addresses);
+    }
+
+    @Override
+    public ResponseEntity<List<Event>> getEventInTown(@PathVariable("regionPostalCode") int regionPostalCode) {
+        List<Event> events = scrapingService.getEventInTown(regionPostalCode);
+        log.info("EventInTown : " + events.size());
+        return ResponseEntity.status(HttpStatus.OK).body(events);
     }
 
     public ResponseEntity<List<Region>> getRegionList() {

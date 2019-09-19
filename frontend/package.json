@@ -6,14 +6,18 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "npm run build"
+    "deploy": "npm run build",
+    "dev": "npm run serve",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev"
   },
   "dependencies": {
     "axios": "^0.18.1",
     "core-js": "^2.6.5",
     "epic-spinners": "^1.1.0",
+    "material-design-icons-iconfont": "^5.0.1",
     "vue": "^2.6.10",
     "vue-awesome": "^3.5.4",
+    "vue-class-component": "^7.1.0",
     "vuetify": "^2.0.0"
   },
   "devDependencies": {

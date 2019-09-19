@@ -239,4 +239,11 @@ public class ScrapingService {
     public List<Region> getRegionList() {
         return regionRepository.findAllByOrderByTownAsc();
     }
+
+    public List<Event> getEventInTown(Integer postalCode) {
+        String code = postalCode.toString();
+        List<Event> byDepartmentStartsWith = eventRepository.findByDepartmentStartsWith(code.length() == 1 ? "00" + code : code.length() == 2 ? "0" + code : code);
+        byDepartmentStartsWith.sort((Event h1, Event h2) -> h1.getDateDeDebut().compareTo(h2.getDateDeDebut()));
+        return byDepartmentStartsWith.stream().filter(event -> event.getDateDeDebut().isAfter(LocalDate.now())).collect(Collectors.toList());
+    }
 }

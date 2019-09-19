@@ -1,53 +1,59 @@
 <template>
-    <v-app id="app" class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <!-- The map goes here -->
-                <div id="map" class="map"></div>
-            </div>
-
-            <div class="col-md-4">
-                <v-container fluid>
-                    <v-row align="center">
-                        <v-col cols="6">
-                            <v-subheader>Prepended icon</v-subheader>
-                        </v-col>
-                        <v-col cols="6">
-                            <v-select
-                                    v-model="e1"
-                                    :items="states"
-                                    menu-props="auto"
-                                    label="Select"
-                                    hide-details
-                                    prepend-icon="map"
-                                    v-on:input="changeRoute(`${e1}`)"
-                                    single-line
-                            ></v-select>
-                        </v-col>
-                    </v-row>
-                </v-container>
-
-                <div v-if="loading">
-                    <orbit-spinner class="displayed"
-                                   :animation-duration="1200"
-                                   :size="55"
-                                   :color="'#ff1d5e'"
-                    />
-
+    <v-app>
+        <div class="container">
+            <v-card :elevation="hover ? 24 : 6"
+                    class="mx-auto pa-6">
+                <div class="row">
+                    <div class="col-md-5">
+                        <!-- The map goes here -->
+                        <div id="map" class="map"></div>
+                    </div>
+                    <div class="col-md-7">
+                        <v-container fluid>
+                            <v-row align="center">
+                                <v-col cols="6">
+                                    <v-subheader>Ville</v-subheader>
+                                </v-col>
+                                <v-col cols="6">
+                                    <v-select v-model="e1"
+                                              :items="states"
+                                              menu-props="auto"
+                                              label="Select"
+                                              hide-details
+                                              prepend-icon="map"
+                                              v-on:input="changeRoute(`${e1}`)"
+                                              single-line
+                                    ></v-select>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                        <div v-if="loading">
+                            <orbit-spinner class="displayed"
+                                           :animation-duration="1200"
+                                           :size="55"
+                                           :color="'#ff1d5e'"/>
+                        </div>
+                        <v-data-table :headers="headers"
+                                      :items="items"
+                                      :items-per-page="5"
+                                      class="elevation-1">
+                        </v-data-table>
+                    </div>
                 </div>
-            </div>
+            </v-card>
         </div>
     </v-app>
-
 </template>
 
 <script>
+    // import Footer from './components/Footer';
     import api from './Api';
     import {OrbitSpinner} from 'epic-spinners'
 
     export default {
 
-        components: { OrbitSpinner },
+        // components: {OrbitSpinner, Footer},
+        components: {OrbitSpinner},
 
         name: 'app',
 
@@ -61,16 +67,25 @@
                 markerLayer: null,
                 region: [],
                 states: [],
+
+                items: [],
+
+                headers: [
+                    {text: 'id', value: 'idEvent'},
+                    {text: 'Title event', value: 'titleEvent'},
+                    {text: 'Date event', value: 'dateEvent'},
+                ],
+
             }
         },
 
 
-        mounted() { /* Code to run when app is mounted */
+        mounted() {
             this.initMap();
         },
 
 
-        methods: { /* Any app-specific functions go here */
+        methods: {
             initMap() {
 
                 // // Creating map options
@@ -95,32 +110,21 @@
 
                 api.getAllTowns()
                     .then(response => {
-                        // console.log(response.data);
                         this.region = response.data;
-                        this.region.forEach((r) => {
-                            this.states.push(r.valueOf().town);
-                        });
-
-                        // this.states.push(response.data.town)
-                        // console.log(this.states)
+                        this.states = response.data.map(r => r.valueOf().town);
                     })
                     .catch(error => {
                         // this.$log.debug(error)
                         this.error = "Failed to load todos"
                     })
                     .finally(() => this.loading = false);
-
-                this.region.forEach((town) => {
-                    this.states.push(town.name);
-                });
-
             },
 
             changeRoute(a) {
-                this.loading = true ;
+                this.loading = true;
                 const newTown = this.region.filter(r => r.valueOf().town == a);
-                var arrayOfLatLngs0=[];
-                var arrayOfLatLngs=[];
+                var arrayOfLatLngs0 = [];
+                var arrayOfLatLngs = [];
                 api.getAll2(newTown[0].code)
                     .then(response => {
                         response.data
@@ -133,12 +137,12 @@
                         var bounds = new L.LatLngBounds(arrayOfLatLngs0);
                         this.map.fitBounds(bounds);
 
-                        if (this.layerGroup!= null){
+                        if (this.layerGroup != null) {
                             this.map.removeLayer(this.layerGroup);
                         }
 
                         // Creating layer group
-                         this.layerGroup = L.layerGroup( arrayOfLatLngs );
+                        this.layerGroup = L.layerGroup(arrayOfLatLngs);
                         this.layerGroup.addTo(this.map);    // Adding layer group to map
 
                     })
@@ -147,31 +151,42 @@
                         this.error = "Failed to load todos"
                     })
                     .finally(() => this.loading = false);
+                this.getEvent(a);
             },
+
+
+            getEvent(a) {
+                this.loading = true;
+                const newTown = this.region.filter(r => r.valueOf().town == a);
+                api.getEventPerTown(newTown[0].code.valueOf())
+                    .then(response => {
+                        this.items = response.data
+                            .map((e, idx) => ({
+                                idEvent: idx + 1,
+                                titleEvent: e.title,
+                                dateEvent: e.dateDeDebut,
+                            }));
+                    })
+                    .catch(error => {
+                        this.error = "Failed to load todos"
+                    })
+                    .finally(() => this.loading = false);
+            },
+
+
         },
     }
 </script>
 
 <style>
-    /*#app {*/
-    /*    font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
-    /*    -webkit-font-smoothing: antialiased;*/
-    /*    -moz-osx-font-smoothing: grayscale;*/
-    /*    text-align: center;*/
-    /*    color: #2c3e50;*/
-    /*    margin-top: 60px;*/
-    /*}*/
-
     .map {
         /*height: 600px;*/
-        height: 650px;
+        height: 450px;
     }
 
-
-    .displayed{
+    .displayed {
         position: absolute;
         left: 50%;
         top: 50%;
     }
-
 </style>
