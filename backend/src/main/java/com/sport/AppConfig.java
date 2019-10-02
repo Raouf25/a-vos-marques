@@ -26,6 +26,7 @@ public class AppConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         // *** URL below needs to match the Vue client URL and port ***
+//        config.setAllowedOrigins(Collections.singletonList("http://localhost:8082"));  // 8080 port du front
         config.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));  // 8080 port du front
         config.setAllowedMethods(Collections.singletonList("*"));
         config.setAllowedHeaders(Collections.singletonList("*"));

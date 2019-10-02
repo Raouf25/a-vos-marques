@@ -1,4 +1,4 @@
-# a-vos-marques
+# a-vos-marques--front
 
 ## Project setup
 ```
