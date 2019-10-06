@@ -1,5 +1,5 @@
 {
-  "name": "a-vos-marques",
+  "name": "a-vos-marques--front",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "leaflet": "^1.5.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuetify": "^2.0.0"

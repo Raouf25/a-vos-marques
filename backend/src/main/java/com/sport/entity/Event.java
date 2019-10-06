@@ -73,8 +73,8 @@ public class Event {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_organizer_contact")
     private Organizer organizerContact = null;
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_stadium_address")
     private Address stadiumAddress = null;
 

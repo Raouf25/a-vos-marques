@@ -43,6 +43,12 @@ public class ScrapingController implements ScrapingApi {
         return ResponseEntity.status(HttpStatus.OK).body(events);
     }
 
+    @Override
+    public ResponseEntity< Event> getEvent(@PathVariable("eventCode") int eventCode) {
+         Event  events = scrapingService.getEventByCode(Integer.toString(eventCode));
+        return ResponseEntity.status(HttpStatus.OK).body(events);
+    }
+
     public ResponseEntity<List<Region>> getRegionList() {
         List<Region> regionList = scrapingService.getRegionList();
         return ResponseEntity.status(HttpStatus.OK).body(regionList);

@@ -11,4 +11,5 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
 
     List<Event> findByDepartmentStartsWith(String s);
 
+    Event findByCode(String eventCode);
 }

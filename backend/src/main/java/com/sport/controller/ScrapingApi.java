@@ -41,6 +41,12 @@ public interface ScrapingApi {
     @GetMapping(value = Endpoints.EVENT_TOWN, produces = {MediaType.APPLICATION_JSON_VALUE})
     ResponseEntity<List<Event>> getEventInTown(@PathVariable("regionPostalCode") int postalCode);
 
+    @ApiOperation(value = "", notes = "Get event data", response = Event.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Scraped file response", response = Event.class),
+                           @ApiResponse(code = 204, message = "No Content", response = Void.class),
+                           @ApiResponse(code = 403, message = "Forbidden", response = Void.class)})
+    @GetMapping(value = Endpoints.EVENT, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity< Event> getEvent(@PathVariable("eventCode") int eventCode);
 
     @ApiOperation(value = "", notes = "Get scraped file", response = Region.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Scraped file response", response = Region.class, responseContainer = "List"),

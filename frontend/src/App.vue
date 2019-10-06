@@ -4,6 +4,10 @@
           <a href="#" @click.prevent="$router.push({name:'home'})">Home</a>  |
           <a href="#" @click.prevent="$router.push({name:'about'})">About</a>
       </div>
-      <router-view/>
+        <div class="container">
+            <v-card :elevation="24" class="mx-auto pa-6">
+                <router-view/>
+            </v-card>
+        </div>
     </v-app>
 </template>

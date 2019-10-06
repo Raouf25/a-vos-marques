@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import EventDetails from './views/EventDetails.vue'
+import EventDetails from './components/EventDetails.vue'
 
 Vue.use(Router)
 
