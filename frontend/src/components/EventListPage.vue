@@ -1,5 +1,12 @@
 <template>
     <div class="row">
+        <h3>
+            CALENDRIER DES COURSES
+        </h3>
+        <h4 class="discription">
+            Découvrez votre prochaine course et son parcours, inscrivez-vous en ligne ou consultez les résultats d'une épreuve.
+            Donnez votre avis sur une course et publiez vos photos et vidéos.
+        </h4>
         <div class="col-md-5">
             <Map :gpsCoordinatesList="arrayOfLatLngs0"/>
         </div>
@@ -129,4 +136,11 @@
 </script>
 
 <style>
+    .discription{
+        font-size: 1.125rem;
+        line-height: 1.5em;
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-weight: 300;
+        text-align: center!important;
+    }
 </style>

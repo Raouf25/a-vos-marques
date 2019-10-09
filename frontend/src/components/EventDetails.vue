@@ -5,7 +5,7 @@
   </div>
   <div class="col-md-7">
    <h1> {{this.event.title}}
-    <!--    Event Details {{ $route.params.code }}: -->
+<!--    Event Details {{ $route.params.code }}: -->
    </h1>
    <div class="row">
     <div class="col-sm">
